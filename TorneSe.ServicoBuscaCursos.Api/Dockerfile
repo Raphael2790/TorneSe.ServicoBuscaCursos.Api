@@ -11,10 +11,10 @@ COPY ["TorneSe.ServicoBuscaCursos.Api.csproj", "TorneSe.ServicoBuscaCursos.Api/"
 RUN dotnet restore "TorneSe.ServicoBuscaCursos.Api/TorneSe.ServicoBuscaCursos.Api.csproj"
 COPY . .
 WORKDIR "/src/TorneSe.ServicoBuscaCursos.Api"
-RUN dotnet build "TorneSe.ServicoBuscaCursos.Api.csproj" -c Release -o /app/build
+RUN dotnet build "TorneSe.ServicoBuscaCursos.Api.csproj" -c Release -o /app/build -r linux-x64
 
 FROM build AS publish
-RUN dotnet publish "TorneSe.ServicoBuscaCursos.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "TorneSe.ServicoBuscaCursos.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false -r linux-x64
 
 FROM base AS final
 WORKDIR /app
