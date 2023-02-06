@@ -7,14 +7,13 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["TorneSe.ServicoBuscaCursos.Api.csproj", "TorneSe.ServicoBuscaCursos.Api/"]
-RUN dotnet restore "TorneSe.ServicoBuscaCursos.Api/TorneSe.ServicoBuscaCursos.Api.csproj"
-COPY . .
-WORKDIR "/src/TorneSe.ServicoBuscaCursos.Api"
-RUN dotnet build "TorneSe.ServicoBuscaCursos.Api.csproj" -c Release -o /app/build -r linux-x64 --no-self-contained
+COPY . ./
+RUN ls
+RUN dotnet restore "TorneSe.ServicoBuscaCursos.Api.csproj"
+RUN dotnet build "TorneSe.ServicoBuscaCursos.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "TorneSe.ServicoBuscaCursos.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false -r linux-x64 --no-self-contained
+RUN dotnet publish "TorneSe.ServicoBuscaCursos.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
