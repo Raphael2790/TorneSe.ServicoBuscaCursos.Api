@@ -44,7 +44,7 @@ jobs:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         application_name: curso-app
-        environment_name: curso-app-dev
+        environment_name: Cursoapp-env
         region: us-east-1
         version_label: ${{ github.run_id }}
         version_description: ${{ github.sha }}
