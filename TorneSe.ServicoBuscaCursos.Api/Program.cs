@@ -105,10 +105,6 @@ app.MapGet("/obterCurso", [AllowAnonymous] (int alunoId, int professorId, int at
     
     int contador = 0;
 
-    //return Results.StatusCode(502);
-
-    //Task.Delay(10000).Wait();
-
     return Results.Ok(nomesCursos.Select((nomeCurso, index) =>
         new Curso
         (
