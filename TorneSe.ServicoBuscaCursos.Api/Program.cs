@@ -257,11 +257,3 @@ public class Aluno
 }
 
 record UserDto(string UserName, string Password);
-
-public partial class Program
-{
-    public static void Main(string[] args)
-    {
-
-    }
-}
