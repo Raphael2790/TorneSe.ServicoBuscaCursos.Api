@@ -131,10 +131,8 @@ app.MapPost("/security/getToken", [AllowAnonymous] (UserDto user) =>
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-        // Now its ime to define the jwt token which will be responsible of creating our tokens
         var jwtTokenHandler = new JwtSecurityTokenHandler();
 
-        // We get our secret from the appsettings
         var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
 
         
@@ -145,15 +143,13 @@ app.MapPost("/security/getToken", [AllowAnonymous] (UserDto user) =>
                 new Claim("Id", "1"),
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Email, user.UserName),
-                // the JTI is used for our refresh token which we will be convering in the next video
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             }),
-            // the life span of the token needs to be shorter and utilise refresh token to keep the user signedin
-            // but since this is a demo app we can extend it to fit our current need
+           
             Expires = DateTime.UtcNow.AddHours(6),
             Audience = audience,
             Issuer = issuer,
-            // here we are adding the encryption alogorithim information which will be used to decrypt our token
+           
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
         };
 
